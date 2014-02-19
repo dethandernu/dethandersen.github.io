@@ -7,10 +7,12 @@ div#header,
 	background-color: #ffffff;
 }
 #bg-overlay {
-	background-image: url(../../img/overlay_light.png); 
+	background-image: url(../../img/overlay_light.png);
 }
-#bg-image { 
-	background-image: url(../../img/background.jpg);
+#bg-image {
+/*	background-image: url(../../img/background.jpg);*/
+	background-color: #cd1b68;
+	background-image: url(http://feministisktinitiativ.se/wp-content/themes/fi/img/pattern.png);
 }
 fieldset,
 div.section.newsletter input {
@@ -23,8 +25,8 @@ div.section.writeus > .toggle-button {
 	color:#ffffff;
 }
 #contact_form .wrap .submit {
-	background-color: #ffffff;
-	color:#000000;	
+	background-color: #cd1b68;
+	color:#000000;
 }
 #widgets.opened > span.close {
 	background: url(../../img/close-widgets-black.png) no-repeat;
@@ -37,6 +39,6 @@ div.section.writeus > .toggle-button {
 }
 @media only screen and (max-width: 480px) {
 	#widgets {
-		background-color: #ffffff; 
+		background-color: #ffffff;
 	}
 }

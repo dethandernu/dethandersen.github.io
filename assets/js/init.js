@@ -6,16 +6,16 @@ var prevWidth = 0;
 var firstLoad = false;
 var nbOfTicks = 0;
 var videoDefined = false;
-	
+
 $(document).ready(function() {
-                
+
 	_startLoading();
 
 	// fade in backgrounds, countdown
 	$('#bg-image').animate({opacity: 1}, 1000);
-	
+
 	if(_isDesktop() && !_isIE8Less()) {
-		
+
 		var video_id = $("#bg-video").data('videoid');
 		var mute = $("#bg-video").data('mute');
 		var start = $("#bg-video").data('start');
@@ -29,58 +29,58 @@ $(document).ready(function() {
 			hide_video = true;
 		}else{
 			videoDefined = true;
-			$('#bg-image').css('background-image', 'none');							
+			$('#bg-image').css('background-image', 'none');
 		}
 
 		if(typeof(mute) == "undefined")
 			mute = true;
-			
+
 		if(typeof(repeat) == "undefined")
 			repeat = true;
-						
+
 		if(typeof(start) == "undefined")
 			start = 2;
 
 		if(typeof(volume) == "undefined")
 			volume = 60;
-	
+
 		$('#bg-video').tubular({
-			videoId: video_id, 
+			videoId: video_id,
 			mute: mute,
 			start: start,
 			repeat: repeat,
-			wrapperZIndex: '1', 
+			wrapperZIndex: '1',
 		});
-		
+
 
 		if(mute == false) {
 			var interval = setInterval(function() {
-	
+
 				if(typeof(player) != "undefined" && typeof(player.setVolume) != "undefined") {
 					player.setVolume(volume);
 					clearInterval(interval);
-				}	
-				
+				}
+
 			}, 500);
 		}
-			
-		
+
+
 		if(hide_video)
 			_hideVideo();
-	
-	}	
+
+	}
 
 
 	// Logo Click
 	$('#logo').click(function() {
 		_scrollUp();
 	});
-	
-	
+
+
 	// init countdown
 	var countdown_time = $("#countdown-widget").data('time');
 	var countdown_timezone = $("#countdown-widget").data('timezone');
-	
+
 	if(countdown_time != '') {
 		launchTime = new Date(Date.parse(countdown_time));
 	}else{
@@ -89,16 +89,16 @@ $(document).ready(function() {
 	}
 	if(countdown_timezone == '')
 		countdown_timezone = null;
-			
+
 	$("#countdown-widget").countdown({
-		until: launchTime, 
+		until: launchTime,
 		format: "dHMS",
 		labels: ['','','','','','',''],
 		digits:['0','1','2','3','4','5','6','7','8','9'],
 		timezone: countdown_timezone,
 		onTick: _onTick
 	});
-	
+
 
 	// style checkboxes
 	$('input:checkbox.screw').screwDefaultButtons({
@@ -112,10 +112,10 @@ $(document).ready(function() {
 		event.preventDefault();
 		_scrollUp();
 	});
-	
+
 
 	// init subscribe form
-	$(".newsletter form").submit(function (event) {
+/*	$(".newsletter form").submit(function (event) {
 		event.preventDefault();
 		var postData = $(this).serialize();
 		var status = $(".newsletter p");
@@ -128,25 +128,25 @@ $(document).ready(function() {
 
 				if (data == "success")
 					status.html("Thanks for your interest! We will let you know.").slideDown();
-				
+
 				else if (data == "subscribed")
 					status.toggleClass('shake').html("This email is already subscribed.").slideDown();
-				 
+
 				else if (data == "invalid")
 					status.toggleClass('shake').html("This email is invalid.").slideDown();
-				
+
 				else
-					status.toggleClass('shake').html("Oups, something went wrong!").slideDown();	
-				
+					status.toggleClass('shake').html("Oups, something went wrong!").slideDown();
+
 			},
 			error: function () {
 				status.toggleClass('shake').html("Oups, something went wrong!").slideDown();
 			}
 		});
-	});
-	
+	});*/
+
 	if(!_isMobile()) {
-	
+
 		// init write us button - toggle contact form
 		$(".writeus .toggle-button").toggle(function(event) {
 			event.preventDefault();
@@ -166,7 +166,7 @@ $(document).ready(function() {
 					contact_form_open = true;
 				});
 			}
-				
+
 		},function(event) {
 			event.preventDefault();
 			var toggleButton = $(this);
@@ -189,10 +189,10 @@ $(document).ready(function() {
 					});
 				});
 			}
-			
+
 		});
 	}else{
-	
+
 		var contactFormHeight = $("#contact_form").height();
 		var widgetsPaddingBottom = parseInt($("#widgets").css('padding-bottom').replace('px', ''));
 		$("#contact_form").hide();
@@ -201,31 +201,31 @@ $(document).ready(function() {
 			$("#widgets").animate({'padding-bottom': widgetsPaddingBottom+contactFormHeight}, 400);
 			$("#contact_form").slideDown();
 			$('html,body').animate({scrollTop: $(".writeus").offset().top - $(".toggle-button").height()},'slow');
-			
+
 		},function(event) {
-		
+
 			event.preventDefault();
-			
+
 			$("#contact_form").slideUp("fast", function () {
 				$("#widgets").animate({'padding-bottom': 65});
 			});
 			$('html,body').animate({scrollTop: $(".writeus").offset().top},'slow');
 
 		});
-		
-		
+
+
 	}
-	
+
 	$("#contact_form .wrap > span.close").click(function() {
 		$(".writeus .toggle-button").click();
 	});
-	
+
 	$("#contact_form .wrap .form .success > span.close").click(function() {
 		$("#contact_form form")[0].reset();
 		$("#contact_form .success").fadeOut();
 	});
 
-	
+
 	// init contact form
 	$("#contact_form form").submit(function (event) {
 		event.preventDefault();
@@ -245,7 +245,7 @@ $(document).ready(function() {
 				} else if (data == "invalid") {
 					status.toggleClass('shake').html("This email is invalid.").slideDown();
 				} else {
-					status.toggleClass('shake').html("Oups, something went wrong!").slideDown();	
+					status.toggleClass('shake').html("Oups, something went wrong!").slideDown();
 				}
 			},
 			error: function () {
@@ -253,47 +253,47 @@ $(document).ready(function() {
 			}
 		});
 	});
-	
 
-	$("#tweet").tweet({		
-		modpath: './assets/js/twitter/',	
+
+	$("#tweet").tweet({
+		modpath: './assets/js/twitter/',
 		username: _getTwitterUser(), // Your Twitter username
 		count: 1, // Number of tweets to show up
 		loading_text: "Loading tweets...",
 		fetch: 10
 	});
 	$(".tweet_list").fadeIn();
-	
+
 	if(!_isMobile()) {
 		setTimeout(function() {
 			_resize();
 			$('#countdown-widget').animate({opacity: 0.8,'margin-top':0}, 1000);
-		},2000);	
+		},2000);
 	}else{
 		$('#countdown-widget').css({opacity: 0.8,'margin-top':0});
-	}	
-		
-		
+	}
+
+
 	// init scroll
 	if( _isMobile() ) {
-		
+
 		_initMobile();
 
 	}else if( _isIpad() ) {
 
-		_initIpad();	
+		_initIpad();
 
 	}else{
-		
+
 		_initDesktop();
-	}	
-	
+	}
+
 	_stopLoading();
 
 	$(window).bind('orientationchange resize', function(event){
 		_resize();
 	});
-	
+
 	// init nicescroll
 	$("#widgets, #contact_form").niceScroll({
 		'hidecursordelay' : 1000 // Default 400
@@ -302,7 +302,7 @@ $(document).ready(function() {
 
 });
 
-	
+
 function _onTick() {
 	var amount;
 	$('.countdown_amount').each(function() {
@@ -311,13 +311,13 @@ function _onTick() {
 			$(this).text('0'+amount);
 		}
 	});
-	 
+
 	if(_isMobile() && nbOfTicks < 3) {
 		_resize();
-	}	
+	}
 	nbOfTicks++;
 }
-      
+
 function _isMobile() {
 
 	return (( /Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent) ) || ($(window).width() <= 480));
@@ -365,16 +365,16 @@ function _resize() {
 			if(prevWidth)
 				location.reload(true);
 		}
-	}	
+	}
 
 	var countdownPaddingTop = (contentHeight / 2) - (countdownHeight / 2) - headerHeight - 30;
-	
+
 	var realCountdownWidth = 0;
 	$('#countdown-widget .countdown_section').each(function() {
 		realCountdownWidth = realCountdownWidth + $(this).width();
 	});
 	var countdownLeft = ((winWidth - realCountdownWidth) / 2);
-	
+
 	if(!_isMobile()) {
 		$('#content, div.section.countdown, #widgets').height(contentHeight);
 		$('#countdown-widget').css({'left':countdownLeft, 'padding-top':countdownPaddingTop});
@@ -383,14 +383,14 @@ function _resize() {
 			$('#contact_form').css({height:contentHeight});
 		}else{
 			$('#widgets').css('overflow-y', 'hidden');
-		}	
+		}
 	}else{
 
 		$('#countdown-widget').css({'left':countdownLeft});
 	}
-	
+
 	$("#widgets").getNiceScroll().resize();
-	
+
 	if(!showing_countdown)
 		_scrollDown();
 }
@@ -405,15 +405,15 @@ function _initIpad() {
 
 	$("#content").removeAttr('style');
 	$("div.section.countdown").unbind("touchstart");
-	
+
 	$("div.section.countdown").bind("touchstart", function() {
 		_scrollDown();
 	});
-	
+
 }
 
 function _initDesktop() {
-		
+
 	$("#content").removeAttr('style');
 	$("div.section.countdown").unbind("click");
 	$("div.section.countdown").bind("click", function() {
@@ -424,21 +424,21 @@ function _initDesktop() {
 	$("#content").bind("mousewheel", function(event, delta, deltaX, deltaY) {
 
 		event.preventDefault();
-		
+
 		if(in_motion == false) {
-			
+
 			in_motion = true;
 
 			if(deltaY < 0) {
-				_scrollDown();	
+				_scrollDown();
 			}else{
-				_scrollUp();	
+				_scrollUp();
 			}
-			
+
 		}else{
 			return false;
 		}
-			
+
 	});
 
 }
@@ -448,15 +448,15 @@ function _scrollDown() {
 	$('#bg-overlay').stop().animate({'top':0}, 800);
 
 	$('.scrolldown').stop().animate({opacity:0}, 400);
-	
+
 	var winHeight = $(window).height();
 	$('#content').stop().animate({scrollTop: winHeight}, 800,function(){
-		in_motion = false;	
+		in_motion = false;
 		showing_countdown = false;
-		$('#widgets').addClass('opened');		
+		$('#widgets').addClass('opened');
 		$('#content').removeClass('cursor');
 	});
-	
+
 	if(_isIE8Less()) {
 		$('#widgets div.section').fadeIn(1000);
 	}else{
@@ -471,7 +471,7 @@ function _scrollUp() {
 
 	if(contact_form_open)
 		$("#contact_form .close").click();
-	
+
 	$('#widgets').removeClass('opened');
 	$('#bg-overlay').stop().animate({'top':'100%'}, 800);
 	if(_isIE8Less()) {
@@ -480,15 +480,15 @@ function _scrollUp() {
 		$('#widgets div.section').stop().animate({'opacity':0}, 800);
 	}
 	$('.scrolldown').stop().animate({opacity:0.8}, 400);
-		
+
 	$('#content').stop().animate({scrollTop: 0}, 800,function(){
 		in_motion = false;
-		showing_countdown = true;	
+		showing_countdown = true;
 		$('#widgets').removeClass('opened');
 		$('#content').addClass('cursor');
 	});
-	
-	$('#countdown-widget').stop().animate({'margin-top':'0', opacity:0.8}, 800);	
+
+	$('#countdown-widget').stop().animate({'margin-top':'0', opacity:0.8}, 800);
 }
 
 function _startLoading() {
@@ -505,30 +505,30 @@ function _stopLoading() {
 	}
 	$(window).load(function() {
 		$("#bg-loading").delay(timeout).animate({opacity:0}, 500, function() {
-		
+
 			$(this).hide();
 		});
-	});	
-	
+	});
+
 }
 function _tubularLoaded() {
 	return ($('body').find('#tubular-container').length > 0);
 }
 
 function _hideVideo() {
-	
+
 	if(typeof(player) != "undefined")
 		player.stopVideo();
-		
+
 	$('#tubular-container').hide();
 	$('#tubular-shield').hide();
-	
+
 }
 
 function _getTwitterUser() {
 
-	var twitter_user = '';
-	
+	var twitter_user = 'brissmyr';
+
 	// init twitter feed - change to your username
 	if($("#tweet").data('tweetuser') && $("#tweet").data('tweetuser') != '') {
 		twitter_user = $("#tweet").data('tweetuser');
@@ -537,5 +537,5 @@ function _getTwitterUser() {
 	}
 
 	return twitter_user;
-	
+
 }
