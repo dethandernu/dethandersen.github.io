@@ -114,6 +114,7 @@
 	}
     div#logo {
 		 padding-top:18px;
+		 font-size: 40px;
 	}
 	#bg-image,#bg-pattern{
 		top:100px;
@@ -249,7 +250,7 @@
 		text-align: center;
 	}
 	#widgets{
-		padding-top: 30px;
+		padding-top: 60px;
 	}
 	#widgets.opened > span.close {
 		top:100px;

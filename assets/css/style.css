@@ -208,8 +208,18 @@ div#header {
 }
     div#logo {
          margin:0 auto;
+/*
          width:72px;
          cursor:pointer;
+*/
+
+         font-family: proxima-nova;
+         font-size: 54px;
+         line-height: 61px;
+         text-align: center;
+         width: initial;
+         text-align: center;
+         color: #cd1b68;
     }
 	div#logo img {
 		text-indent: -3000px;
@@ -230,7 +240,7 @@ div#header {
 
 #main #widgets div.section {
 	margin: 0 auto 50px auto;
-	width: 620px;
+	width: 720px;
 	position:relative;
 	overflow: hidden;
 }
@@ -271,8 +281,8 @@ div.section.countdown {
 	div.section.countdown .scrolldown {
 		background-image: url('../img/cursor.png');
 		background-repeat: no-repeat;
-		width:34px;
-		height:34px;
+		width:64px;
+		height:64px;
 		position:fixed;
 		top: 70%;
 		left: 48.5%;
